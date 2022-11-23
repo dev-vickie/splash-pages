@@ -26,13 +26,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           PageView(
             onPageChanged: (value) {
               setState(() {
-                onLastPage = (value == 2);
+                onLastPage = (value == 3);
               });
             },
             controller: _controller,
             children: [
               IntroPage1(),
               IntroPage2(),
+              IntroPage3(),
               IntroPage3(),
             ],
           ),
@@ -43,7 +44,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    _controller.jumpToPage(2);
+                    Navigator.pop(context);
+                    // _controller.jumpToPage(2);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                   child: Text('skip'),
                 ),
@@ -54,6 +58,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 onLastPage
                     ? GestureDetector(
                         onTap: () {
+                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
