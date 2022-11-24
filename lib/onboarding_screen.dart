@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:splashpages/intro_screens/intro_page_one.dart';
-import 'package:splashpages/intro_screens/intro_page_three.dart';
-import 'package:splashpages/intro_screens/intro_page_two.dart';
+import 'intro_screens/intro_page_one.dart';
+import 'intro_screens/intro_page_three.dart';
+import 'intro_screens/intro_page_two.dart';
 
 import 'homepage.dart';
 
@@ -18,6 +18,12 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _controller = PageController();
   bool onLastPage = false;
+  //skip,next,done TextStyle()
+  TextStyle footerTextStyle = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +32,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           PageView(
             onPageChanged: (value) {
               setState(() {
-                onLastPage = (value == 3);
+                onLastPage = (value == 2);
               });
             },
             controller: _controller,
@@ -34,22 +40,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               IntroPage1(),
               IntroPage2(),
               IntroPage3(),
-              IntroPage3(),
             ],
           ),
           Container(
-            alignment: const Alignment(0, 0.75),
+            alignment: const Alignment(0, 0.90),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
-                    // _controller.jumpToPage(2);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                    _controller.jumpToPage(2);
                   },
-                  child: Text('skip'),
+                  child: Text(
+                    'skip',
+                    style: footerTextStyle,
+                  ),
                 ),
                 SmoothPageIndicator(
                   controller: _controller,
@@ -66,7 +71,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             ),
                           );
                         },
-                        child: Text('done'),
+                        child: Text(
+                          'done',
+                          style: footerTextStyle,
+                        ),
                       )
                     : GestureDetector(
                         onTap: () {
@@ -75,7 +83,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             curve: Curves.easeInBack,
                           );
                         },
-                        child: Text('next'),
+                        child: Text(
+                          'next',
+                          style: footerTextStyle,
+                        ),
                       ),
               ],
             ),
